@@ -2,14 +2,15 @@ package com.company;
 
 public class Patient {
 
-    String familyName;
-    String givenName;
-    String prefix;
-    String phone;
-    String phoneType;
+    Name patientName = new Name();
+    Contact patientContact = new Contact();
+    Address patientAddress = new Address();
+
     String gender;
     String birthDate;
     String deceaseDate;
+    String maritalStatus;
+    String language;
 
 
     public Patient()
