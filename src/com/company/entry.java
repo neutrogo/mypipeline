@@ -1,13 +1,13 @@
 package com.company;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class TestSimpleResource {
+public class entry{
 
-    Gson gson = new GsonBuilder()
+    resource resource;
+
+
+    /*Gson gson = new GsonBuilder()
             .excludeFieldsWithoutExposeAnnotation()
             .create();
 
@@ -21,6 +21,6 @@ public class TestSimpleResource {
     @Expose String phone;
     @SerializedName("use")
     @Expose String phonetype;
-
+*/
     // keep in mind []telecom may NOT be a phone, check for this
 }

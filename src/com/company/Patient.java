@@ -2,7 +2,7 @@ package com.company;
 
 public class Patient {
 
-    Name patientName = new Name();
+    //Name patientName = new Name();
     Contact patientContact = new Contact();
     Address patientAddress = new Address();
 

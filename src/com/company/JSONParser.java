@@ -12,8 +12,11 @@ import java.util.Scanner;
 public class JSONParser {
 
     String patientFile = "Aaron697_Dickens475_8c95253e-8ee8-9ae8-6d40-021d702dc78e.json";
-    String filePath = ".." + File.pathSeparator + ".." + File.pathSeparator + "data" + File.pathSeparator + patientFile;
+    String filePath = /*".." + File.separator + ".." + File.separator + ".." + File.separator + "data" + File.separator*/ "data/"+ patientFile;
 
+    public JSONParser() throws FileNotFoundException
+    {
+    }
 /*    Gson gson = new Gson();
     ArrayList<String> JSONString = new ArrayList<>();
     String patientFile = "Aaron697_Dickens475_8c95253e-8ee8-9ae8-6d40-021d702dc78e.json";
@@ -33,6 +36,8 @@ public class JSONParser {
     Reader rd = new FileReader(filePath);
 
 
-    public JSONParser() throws FileNotFoundException {
+    public String getFilePath()
+    {
+        return this.filePath;
     }
 }
