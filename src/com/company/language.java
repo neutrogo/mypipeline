@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.ArrayList;
+
 public class language {
-    coding coding;
+    ArrayList<coding> coding = new ArrayList<>();
 }

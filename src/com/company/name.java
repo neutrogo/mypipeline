@@ -7,5 +7,4 @@ public class name
     String family; // probably wont work
     ArrayList<String> given = new ArrayList<>();
     ArrayList<String> prefix = new ArrayList<>();
-    //ArrayList<prefix> prefix = new ArrayList<>();
 }

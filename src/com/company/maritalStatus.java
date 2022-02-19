@@ -2,6 +2,6 @@ package com.company;
 
 import java.util.ArrayList;
 
-public class maritalstatus {
+public class maritalStatus {
     ArrayList<coding> coding = new ArrayList<>();
 }
