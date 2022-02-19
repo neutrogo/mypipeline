@@ -21,4 +21,7 @@ public class resource
     code code;
     valueQuantity valueQuantity; // if not this then its component for blood pressure
     ArrayList<component> component = new ArrayList<>();
+
+    //smoking values
+    valueCodeableConcept valueCodeableConcept;
 }
