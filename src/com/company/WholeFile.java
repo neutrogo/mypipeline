@@ -20,9 +20,16 @@ public class WholeFile {
 
     public String getGeneralHealth()
     {
-        String query = "CREATE DATABASE General Health; " + "USE General Health;" + "CREATE TABLE 'Patient Health'"
-                + "{" + "'family name' " + "varchar(50) NOT NULL," + "'given name' " + "varchar(50) NOT NULL," +
-                "'prefix' " + "varchar(10)," + "'telecom' " + "varchar(20)," + "";
+        String query = "DROP TABLE IF EXISTS 'General Health';" +"CREATE DATABASE General Health; " + "USE General Health;" + "CREATE TABLE 'Patient Health' ("
+                + "(" + "'entry'" + "int(11)" + "'family name'" + "varchar(50) NOT NULL," + "'given name'" + "varchar(50) NOT NULL," +
+                "'prefix' " + "varchar(10)," + "'Communication'" + "varchar(50)," + "'value' " + "varchar(20)," +
+                "'Type'" + "varchar(50)," + "'Gender'" + "varchar(20)," + "'Birth Date'" + "varchar(20) NOT NULL," +
+                "'Marital Status'" + "varchar(5) NOT NULL," + "'Communication'" + "varchar(10)," + "'Measured'" +
+                "'varchar(20) NOT NULL," + "'Quantity'" + "float(10) NOT NULL," + "'Metric'" + "varchar(15) NOT NULL," +
+                "'Smoker'" + "varchar(20) NOT NULL," + "PRIMARY KEY('entry')";
+
+        // check that float and smoker functions
+
         for(int i = 0; i < entry.size(); i++)
         {
             entry.get(i).resource.;

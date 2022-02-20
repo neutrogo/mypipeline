@@ -26,7 +26,7 @@ public class Main {
 
         if(userInput.toLowerCase().equals("general health"))
         {
-            String sql = WholeFile.getGeneralHealth();
+            String sql = testsimple.getGeneralHealth();
         }
 
             //consider eliminating all empty values from entry objects
