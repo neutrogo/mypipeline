@@ -17,4 +17,15 @@ public class WholeFile {
         }
         return entryOfType;
     }
+
+    public String getGeneralHealth()
+    {
+        String query = "CREATE DATABASE General Health; " + "USE General Health;" + "CREATE TABLE 'Patient Health'"
+                + "{" + "'family name' " + "varchar(50) NOT NULL," + "'given name' " + "varchar(50) NOT NULL," +
+                "'prefix' " + "varchar(10)," + "'telecom' " + "varchar(20)," + "";
+        for(int i = 0; i < entry.size(); i++)
+        {
+            entry.get(i).resource.;
+        }
+    }
 }
