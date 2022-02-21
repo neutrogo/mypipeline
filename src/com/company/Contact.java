@@ -1,8 +1,8 @@
 package com.company;
 
 // contains the patients contact details
-public class Contact
-{
+public class Contact {
+
     String phone;
     String phoneType;
     Address patientAddress = new Address();
@@ -10,4 +10,5 @@ public class Contact
     public Contact()
     {
     }
+    
 }

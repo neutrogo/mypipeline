@@ -1,5 +1,7 @@
 package com.company;
 
-public class coding {
+public class Coding {
+
     String display;
+
 }

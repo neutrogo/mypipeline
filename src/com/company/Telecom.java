@@ -1,7 +1,9 @@
 package com.company;
 
-public class telecom {
+public class Telecom {
+
     String system;
     String value;
     String use;
+
 }

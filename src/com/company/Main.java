@@ -10,22 +10,25 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         //JSON Parser Objects
-        JSONParser parser = new JSONParser();
+        Filechooser chooser = new Filechooser();
         Gson gson = new Gson();
 
         //Objects to read the users CLI input
         BufferedReader bReader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("What dataset would you like to create? General Health Data or (further options)?");
         String userInput = bReader.readLine();
+        System.out.println("Which file would you like to use?");
+        System.out.println("(Please indicate a JSON File of the FHIR format in the data folder), eg. XYZ.json)");
+        chooser.patientFile = bReader.readLine();
 
-        Reader reader = new FileReader(parser.getFilePath());
+        Reader reader = new FileReader(chooser.getFilePath());
 
-        WholeFile testsimple = gson.fromJson(reader, WholeFile.class);
+        PatientFile patientFile = gson.fromJson(reader, PatientFile.class);
 
+        if(userInput.equalsIgnoreCase("general health")) {
+            String sql = patientFile.getGeneralHealth();
 
-        if(userInput.toLowerCase().equals("general health")) {
-            String sql = testsimple.getGeneralHealth();
-
+            // Turn FHIR file into an SQL Database
             try (Connection conn = DriverManager.getConnection(Database.DB_URL, Database.USER, Database.PASS);
                  PreparedStatement preparedStatement = conn.prepareStatement(sql)
 
@@ -38,9 +41,9 @@ public class Main {
                 preparedStatement.executeUpdate("DROP TABLE IF EXISTS `Patient`");
                 preparedStatement.executeUpdate("DROP TABLE IF EXISTS `General_Health`");
                 preparedStatement.executeUpdate(sql);
-                testsimple.setPatientStatements(preparedStatement, conn, sql);
-                testsimple.createObservation(preparedStatement,conn, sql);
-                testsimple.insertObservation(preparedStatement,conn,sql);
+                patientFile.setPatientStatements(preparedStatement, conn, sql);
+                patientFile.createObservation(preparedStatement,conn, sql);
+                patientFile.insertObservation(preparedStatement,conn,sql);
                 System.out.println("Finished!");
 
             } catch (SQLException e) {

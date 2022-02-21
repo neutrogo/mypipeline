@@ -1,6 +1,8 @@
 package com.company;
 
-public class valueQuantity {
+public class ValueQuantity {
+
     double value;
     String unit;
+    
 }
