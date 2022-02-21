@@ -15,10 +15,8 @@ public class Main {
 
         //Objects to read the users CLI input
         BufferedReader bReader = new BufferedReader(new InputStreamReader(System.in));
-
-        System.out.println("What dataset would you like to create? General Health or xxxxx?");
+        System.out.println("What dataset would you like to create? General Health Data or (further options)?");
         String userInput = bReader.readLine();
-
 
         Reader reader = new FileReader(parser.getFilePath());
 
@@ -29,22 +27,25 @@ public class Main {
             String sql = testsimple.getGeneralHealth();
 
             try (Connection conn = DriverManager.getConnection(Database.DB_URL, Database.USER, Database.PASS);
-                 //Statement stmt = conn.createStatement();
                  PreparedStatement preparedStatement = conn.prepareStatement(sql)
 
             ) {
-                //stmt.executeUpdate(("CREATE DATABASE `General Health`"));
-                conn.setCatalog("`General Health`");
-                System.out.println("Database connected successfully...");
+                preparedStatement.executeUpdate("DROP DATABASE IF EXISTS `Patient_Data`");
+                preparedStatement.executeUpdate("CREATE DATABASE `Patient_Data`");
+                conn.setCatalog("`Patient_Data`");
+                System.out.println("Database connected successfully!");
+                System.out.println("\nConstructing your Database...");
+                preparedStatement.executeUpdate("DROP TABLE IF EXISTS `Patient`");
+                preparedStatement.executeUpdate("DROP TABLE IF EXISTS `General_Health`");
                 preparedStatement.executeUpdate(sql);
                 testsimple.setPatientStatements(preparedStatement, conn, sql);
-                //preparedStatement.executeUpdate();
-                //stmt.executeUpdate(sql);
+                testsimple.createObservation(preparedStatement,conn, sql);
+                testsimple.insertObservation(preparedStatement,conn,sql);
+                System.out.println("Finished!");
+
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-            //consider eliminating all empty values from entry objects
-
     }
 }

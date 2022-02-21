@@ -83,4 +83,47 @@ public class WholeFile {
 
         prep.executeUpdate();
     }
+
+    // does NOT cover blood pressure or smoking
+    public void createObservation(PreparedStatement prep, Connection conn, String sql) throws SQLException {
+
+        sql = "CREATE TABLE `General_Health` ( " + "`ID` int(11) AUTO_INCREMENT, " + "`measurement` " + "VARCHAR(100) NOT NULL, "
+                + "`value` " + "double(200,1) NOT NULL, " + "`units` " + "varchar(50) NOT NULL, " +
+                "PRIMARY KEY(`ID`) ) " ;
+
+        prep = conn.prepareStatement(sql);
+
+        prep.executeUpdate();
+
+    }
+
+    public void insertObservation(PreparedStatement prep, Connection conn, String sql) throws SQLException {
+        for(int i = 0; i < entry.size(); i++)
+        {
+
+            if(entry.get(i).resource.resourceType.equals("Observation") && entry.get(i).resource.code != null &&
+               entry.get(i).resource.valueQuantity != null)
+                    //entry.get(i).resource.code.coding.get(0).display.equals("Body Height") ||
+                    //entry.get(i).resource.code.coding.get(0).display.equals("Body Weight") ||
+                    //entry.get(i).resource.code.coding.get(0).display.equals("Body Mass Index") ||
+                    //entry.get(i).resource.code.coding.get(0).display.equals("Heart rate"))
+            {
+                sql = "INSERT INTO General_Health (`measurement`,`value`,`units`) values (?,?,?)";
+
+                String measurement = entry.get(i).resource.code.coding.get(0).display;
+                double value = entry.get(i).resource.valueQuantity.value;
+                String unit = entry.get(i).resource.valueQuantity.unit;
+
+                prep = conn.prepareStatement(sql);
+
+                prep.setString(1, measurement);
+                prep.setDouble(2, value);
+                prep.setString(3, unit);
+
+                prep.executeUpdate();
+
+            }
+
+        }
+    }
 }
