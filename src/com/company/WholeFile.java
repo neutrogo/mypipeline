@@ -20,7 +20,8 @@ public class WholeFile {
 
     public String getGeneralHealth()
     {
-        String query = "DROP TABLE IF EXISTS 'General Health';" +"CREATE DATABASE General Health; " + "USE General Health;" + "CREATE TABLE 'Patient Health' ("
+        // full table, partitioning by category/observation may be better
+        String query = "DROP DATABASE IF EXISTS 'General Health';" +"CREATE DATABASE General Health; " + "USE General Health;" + "CREATE TABLE 'Patient Health' ("
                 + "(" + "'entry'" + "int(11)" + "'family name'" + "varchar(50) NOT NULL," + "'given name'" + "varchar(50) NOT NULL," +
                 "'prefix' " + "varchar(10)," + "'Communication'" + "varchar(50)," + "'value' " + "varchar(20)," +
                 "'Type'" + "varchar(50)," + "'Gender'" + "varchar(20)," + "'Birth Date'" + "varchar(20) NOT NULL," +
@@ -28,11 +29,32 @@ public class WholeFile {
                 "'varchar(20) NOT NULL," + "'Quantity'" + "float(10) NOT NULL," + "'Metric'" + "varchar(15) NOT NULL," +
                 "'Smoker'" + "varchar(20) NOT NULL," + "PRIMARY KEY('entry')";
 
+        String testquery = /*"DROP DATABASE IF EXISTS 'General Health'; "*/ /*+ "CREATE DATABASE `GeneralHealth`; "
+                +*/ /*"USE `General Health`; "*/ /*+ "DROP TABLE IF EXISTS `Patient Health`; "+*/ "CREATE TABLE `PatientHealth` ( " + "`entry` " + "int(11), "
+                + "`family name`" + "varchar(50) NOT NULL, " + "`given name`" + "varchar(50) NOT NULL, " +
+                "`prefix` " + "varchar(10), " + "PRIMARY KEY(`entry`) ); " ;
+
         // check that float and smoker functions
 
-        for(int i = 0; i < entry.size(); i++)
-        {
-            entry.get(i).resource.;
-        }
+/*        for(int i = 0; i < entry.size(); i++)
+        {*/
+        int i = 0;
+
+            String familyName = entry.get(i).resource.name.get(0).family;
+            String givenName = entry.get(i).resource.name.get(0).given.get(0);
+            String prefix = entry.get(i).resource.name.get(0).prefix.get(0);
+            String fullName = givenName + familyName;
+
+            String tableQuery = "INSERT INTO PatientHealth (`entry`,`family name`,`given name`,`prefix`) values " +
+                    "(" + i + ",'" + familyName + "','" + givenName + "','" + prefix + "');";
+
+            /*String tableQuery = "CREATE TABLE '" + fullName + "' (" + "'entry'" + "int(11)" + "'family name'" +
+                    "varchar(50) NOT NULL," + "'given name'" + "varchar(50) NOT NULL," + "'prefix' " + "varchar(10)," +
+                    "PRIMARY KEY ('entry') )" + "insert into '" + fullName + "' (" + "'" + i + "','" + familyName +
+                    "','" + givenName + "','" + "','" + prefix + ") values";*/
+
+        return testquery + tableQuery;
+/*        }
+        return " "; // change this*/
     }
 }
