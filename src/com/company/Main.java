@@ -3,11 +3,7 @@ package com.company;
 import com.google.gson.Gson;
 
 import java.io.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
+import java.sql.*;
 
 public class Main {
 
@@ -33,12 +29,17 @@ public class Main {
             String sql = testsimple.getGeneralHealth();
 
             try (Connection conn = DriverManager.getConnection(Database.DB_URL, Database.USER, Database.PASS);
-                 Statement stmt = conn.createStatement();
+                 //Statement stmt = conn.createStatement();
+                 PreparedStatement preparedStatement = conn.prepareStatement(sql)
+
             ) {
                 //stmt.executeUpdate(("CREATE DATABASE `General Health`"));
                 conn.setCatalog("`General Health`");
                 System.out.println("Database connected successfully...");
-                stmt.executeUpdate(sql);
+                preparedStatement.executeUpdate(sql);
+                testsimple.setPatientStatements(preparedStatement, conn, sql);
+                //preparedStatement.executeUpdate();
+                //stmt.executeUpdate(sql);
             } catch (SQLException e) {
                 e.printStackTrace();
             }

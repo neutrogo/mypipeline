@@ -1,5 +1,8 @@
 package com.company;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class WholeFile {
@@ -31,8 +34,10 @@ public class WholeFile {
 
         String testquery = /*"DROP DATABASE IF EXISTS 'General Health'; "*/ /*+ "CREATE DATABASE `GeneralHealth`; "
                 +*/ /*"USE `General Health`; "*/ /*+ "DROP TABLE IF EXISTS `Patient Health`; "+*/ "CREATE TABLE `PatientHealth` ( " + "`entry` " + "int(11), "
-                + "`family name`" + "varchar(50) NOT NULL, " + "`given name`" + "varchar(50) NOT NULL, " +
-                "`prefix` " + "varchar(10), " + "PRIMARY KEY(`entry`) ); " ;
+                + "`familyName`" + "varchar(50) NOT NULL, " + "`givenName`" + "varchar(50) NOT NULL, " +
+                "`prefix` " + "varchar(10), " + "PRIMARY KEY(`entry`) ) " ;
+
+
 
         // check that float and smoker functions
 
@@ -40,21 +45,42 @@ public class WholeFile {
         {*/
         int i = 0;
 
-            String familyName = entry.get(i).resource.name.get(0).family;
+            /*String familyName = entry.get(i).resource.name.get(0).family;
             String givenName = entry.get(i).resource.name.get(0).given.get(0);
             String prefix = entry.get(i).resource.name.get(0).prefix.get(0);
             String fullName = givenName + familyName;
+*/
+            //String tableQuery = "INSERT INTO PatientHealth (`entry`,`familyName`,`givenName`,`prefix`) values (?,?,?,?)";
 
-            String tableQuery = "INSERT INTO PatientHealth (`entry`,`family name`,`given name`,`prefix`) values " +
-                    "(" + i + ",'" + familyName + "','" + givenName + "','" + prefix + "');";
+                    /*"(" + i + ",'" + familyName + "','" + givenName + "','" + prefix + "');"*/
+
 
             /*String tableQuery = "CREATE TABLE '" + fullName + "' (" + "'entry'" + "int(11)" + "'family name'" +
                     "varchar(50) NOT NULL," + "'given name'" + "varchar(50) NOT NULL," + "'prefix' " + "varchar(10)," +
                     "PRIMARY KEY ('entry') )" + "insert into '" + fullName + "' (" + "'" + i + "','" + familyName +
                     "','" + givenName + "','" + "','" + prefix + ") values";*/
 
-        return testquery + tableQuery;
+        return testquery;
 /*        }
         return " "; // change this*/
+    }
+
+    public void setPatientStatements(PreparedStatement prep, Connection conn, String sql) throws SQLException {
+
+        sql = "INSERT INTO PatientHealth (`entry`,`familyName`,`givenName`,`prefix`) values (?,?,?,?)";
+
+        String familyName = entry.get(0).resource.name.get(0).family;
+        String givenName = entry.get(0).resource.name.get(0).given.get(0);
+        String prefix = entry.get(0).resource.name.get(0).prefix.get(0);
+        String fullName = givenName + familyName;
+
+        prep = conn.prepareStatement(sql);
+
+        prep.setInt(1, 0);
+        prep.setString(2, familyName);
+        prep.setString(3, givenName);
+        prep.setString(4, prefix);
+
+        prep.executeUpdate();
     }
 }
